@@ -65,9 +65,6 @@ class BinarySearchTree {
     return null;
   }
 
-  printTree() {
-  }
-
   height() {
     return this.calculateHeight(this.root);
   }
@@ -80,6 +77,7 @@ class BinarySearchTree {
     const rightHeight = this.calculateHeight(node.right);
     return Math.max(leftHeight, rightHeight) + 1;
   }
+
   remove(value) {
     if (this.root === null) {
       return null;
