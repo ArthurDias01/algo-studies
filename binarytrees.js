@@ -184,6 +184,77 @@ class BinarySearchTree {
       nextQueue = [];
     }
   }
+
+  breadthFirstSearch() {
+    let currentNode = this.root;
+    let list = [];
+    let queue = [];
+    queue.push(currentNode);
+
+    while (queue.length > 0) {
+      // shift returns the first element of the array and removes it from the array
+      currentNode = queue.shift();
+      // console.log(currentNode.value);
+      list.push(currentNode.value);
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+    }
+    return list;
+  }
+  breadthFirstSearchR(queue, list) {
+    if (!queue.length) {
+      return list
+    }
+    const currentNode = queue.shift();
+    list.push(currentNode.value);
+    if (currentNode.left) queue.push(currentNode.left);
+    if (currentNode.right) queue.push(currentNode.right);
+    return this.breadthFirstSearchR(queue, list);
+  }
+
+  DFSInorder() {
+    return traverseInOrder(this.root, [])
+  }
+  DFSPostOrder() {
+    return traversePostOrder(this.root, []);
+  }
+  DFSPreorder() {
+    return traversePreOrder(this.root, []);
+  }
+}
+
+function traverseInOrder(node, list) {
+  console.log(node.value);
+  if (node.left) {
+    traverseInOrder(node.left, list)
+  }
+  list.push(node.value);
+  if (node.right) {
+    traverseInOrder(node.right, list)
+  }
+  return list;
+}
+
+function traversePreOrder(node, list) {
+  list.push(node.value);
+  if (node.left) {
+    traversePreOrder(node.left, list)
+  }
+  if (node.right) {
+    traversePreOrder(node.right, list)
+  }
+  return list;
+}
+
+function traversePostOrder(node, list) {
+  if (node.left) {
+    traversePostOrder(node.left, list)
+  }
+  if (node.right) {
+    traversePostOrder(node.right, list)
+  }
+  list.push(node.value);
+  return list;
 }
 
 //example tree
@@ -214,4 +285,14 @@ tree.insert(99);
 // console.log(tree.lookup(90))
 // console.log(tree.length, "tree height", tree.height())
 // tree.printTree();
-console.log(tree.height())
+// console.log(tree.height())
+// console.log(tree.breadthFirstSearch());
+// console.log(tree.breadthFirstSearchR([tree.root], []));
+
+// DFS 
+// inorder - [1, 4, 6, 9, 20, 15, 99]
+// console.log(tree.DFSInorder());
+// preorder - [9, 4, 1, 6, 20, 15, 99]
+// console.log(tree.DFSPreorder());
+// postorder - [1,  6, 4, 15, 99, 20, 9]
+console.log(tree.DFSPostOrder());
